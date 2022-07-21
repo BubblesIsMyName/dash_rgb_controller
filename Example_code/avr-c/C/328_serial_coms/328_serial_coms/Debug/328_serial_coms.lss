@@ -1,0 +1,190 @@
+
+328_serial_coms.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  00000158  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000104  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  00000158  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000188  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000038  00000000  00000000  000001c8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007bc  00000000  00000000  00000200  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 000006dd  00000000  00000000  000009bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000301  00000000  00000000  00001099  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000054  00000000  00000000  0000139c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003d4  00000000  00000000  000013f0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000048  00000000  00000000  000017c4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000028  00000000  00000000  0000180c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   8:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+   c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  10:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  14:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  18:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  1c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  20:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  24:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  28:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  2c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  30:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  34:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  38:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  3c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  40:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  44:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  48:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  4c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  50:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  54:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  58:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  5c:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  60:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+  64:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0e 94 5e 00 	call	0xbc	; 0xbc <main>
+  78:	0c 94 80 00 	jmp	0x100	; 0x100 <_exit>
+
+0000007c <__bad_interrupt>:
+  7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000080 <USART_Init>:
+
+    void USART_Init()
+    {
+	    UCSR0B= 0x18;   // Enable Receiver and Transmitter
+  80:	88 e1       	ldi	r24, 0x18	; 24
+  82:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7e00c1>
+	    UCSR0C= 0x86;   // Asynchronous mode 8-bit data and 1-stop bit
+  86:	86 e8       	ldi	r24, 0x86	; 134
+  88:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7e00c2>
+	    UCSR0A= 0x00;   // Normal Baud rate(no doubling), Single processor commn
+  8c:	10 92 c0 00 	sts	0x00C0, r1	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
+	    UBRR0H= 0;
+  90:	10 92 c5 00 	sts	0x00C5, r1	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7e00c5>
+	    UBRR0L= 207;     // 9600 Baud rate at 11.0592MHz
+  94:	8f ec       	ldi	r24, 0xCF	; 207
+  96:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
+  9a:	08 95       	ret
+
+0000009c <UART_TxChar>:
+    }
+	
+	void UART_TxChar(char ch)
+	{
+		while((UCSR0A & (1<<UDRE0))==0); // Wait till Transmitter(UDR) register becomes Empty
+  9c:	e0 ec       	ldi	r30, 0xC0	; 192
+  9e:	f0 e0       	ldi	r31, 0x00	; 0
+  a0:	90 81       	ld	r25, Z
+  a2:	95 ff       	sbrs	r25, 5
+  a4:	fd cf       	rjmp	.-6      	; 0xa0 <UART_TxChar+0x4>
+		UDR0 =ch;             // Load the data to be transmitted
+  a6:	80 93 c6 00 	sts	0x00C6, r24	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7e00c6>
+  aa:	08 95       	ret
+
+000000ac <UART_RxChar>:
+	}
+	
+	char UART_RxChar()
+	{
+		while((UCSR0A & (1<<RXC0))==0);   // Wait till the data is received
+  ac:	e0 ec       	ldi	r30, 0xC0	; 192
+  ae:	f0 e0       	ldi	r31, 0x00	; 0
+  b0:	80 81       	ld	r24, Z
+  b2:	88 23       	and	r24, r24
+  b4:	ec f7       	brge	.-6      	; 0xb0 <UART_RxChar+0x4>
+		return(UDR0);                    // return the received char
+  b6:	80 91 c6 00 	lds	r24, 0x00C6	; 0x8000c6 <__TEXT_REGION_LENGTH__+0x7e00c6>
+  ba:	08 95       	ret
+
+000000bc <main>:
+#include "coms.h"
+
+int main(void)
+{
+	//char Set_ch = 48;
+	DDRB = 0xFF; // PORTB All output
+  bc:	8f ef       	ldi	r24, 0xFF	; 255
+  be:	84 b9       	out	0x04, r24	; 4
+	USART_Init();
+  c0:	0e 94 40 00 	call	0x80	; 0x80 <USART_Init>
+	while (1)
+	{
+		if(UART_RxChar())
+		{
+		UART_TxChar((char)UART_RxChar());
+		PORTB = 0xFF; // Turns on all LED's
+  c4:	cf ef       	ldi	r28, 0xFF	; 255
+	//char Set_ch = 48;
+	DDRB = 0xFF; // PORTB All output
+	USART_Init();
+	while (1)
+	{
+		if(UART_RxChar())
+  c6:	0e 94 56 00 	call	0xac	; 0xac <UART_RxChar>
+  ca:	88 23       	and	r24, r24
+  cc:	71 f0       	breq	.+28     	; 0xea <main+0x2e>
+		{
+		UART_TxChar((char)UART_RxChar());
+  ce:	0e 94 56 00 	call	0xac	; 0xac <UART_RxChar>
+  d2:	0e 94 4e 00 	call	0x9c	; 0x9c <UART_TxChar>
+		PORTB = 0xFF; // Turns on all LED's
+  d6:	c5 b9       	out	0x05, r28	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d8:	2f ef       	ldi	r18, 0xFF	; 255
+  da:	83 ed       	ldi	r24, 0xD3	; 211
+  dc:	90 e3       	ldi	r25, 0x30	; 48
+  de:	21 50       	subi	r18, 0x01	; 1
+  e0:	80 40       	sbci	r24, 0x00	; 0
+  e2:	90 40       	sbci	r25, 0x00	; 0
+  e4:	e1 f7       	brne	.-8      	; 0xde <main+0x22>
+  e6:	00 c0       	rjmp	.+0      	; 0xe8 <main+0x2c>
+  e8:	00 00       	nop
+		_delay_ms(1000);
+		}
+		PORTB = 0x00; // Turns off all LED's
+  ea:	15 b8       	out	0x05, r1	; 5
+  ec:	2f ef       	ldi	r18, 0xFF	; 255
+  ee:	83 ed       	ldi	r24, 0xD3	; 211
+  f0:	90 e3       	ldi	r25, 0x30	; 48
+  f2:	21 50       	subi	r18, 0x01	; 1
+  f4:	80 40       	sbci	r24, 0x00	; 0
+  f6:	90 40       	sbci	r25, 0x00	; 0
+  f8:	e1 f7       	brne	.-8      	; 0xf2 <main+0x36>
+  fa:	00 c0       	rjmp	.+0      	; 0xfc <main+0x40>
+  fc:	00 00       	nop
+  fe:	e3 cf       	rjmp	.-58     	; 0xc6 <main+0xa>
+
+00000100 <_exit>:
+ 100:	f8 94       	cli
+
+00000102 <__stop_program>:
+ 102:	ff cf       	rjmp	.-2      	; 0x102 <__stop_program>

@@ -1,0 +1,32 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.7</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\Debug\PWM.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>PWM.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>PWM.map</FILE>
+  <FILE>PWM.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <ON_RESET><FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\main.asm</FILE><LINE>13</LINE></ON_RESET>
+  <MAIN_LOOP><FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\main.asm</FILE><LINE>16</LINE></MAIN_LOOP>
+  <PAUSE><FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\main.asm</FILE><LINE>24</LINE></PAUSE>
+  <PLUPE><FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\main.asm</FILE><LINE>25</LINE></PLUPE>
+  <MPAUSE><FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\main.asm</FILE><LINE>29</LINE></MPAUSE>
+  <MPLUP><FILE>C:\Courses and Research\Other Projects\RGB fishtank\Example_soft\PWM\PWM\main.asm</FILE><LINE>30</LINE></MPLUP>
+ </LABELS>
+</ASSEMBLER_INFO>
