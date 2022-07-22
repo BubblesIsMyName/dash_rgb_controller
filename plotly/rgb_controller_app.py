@@ -5,6 +5,7 @@
 # visit http://127.0.0.1:8050/ in your web browser.
 #%% IMPORT
 
+import string
 from dash import Dash, html, dcc, Input, Output, State
 import plotly.graph_objects as go
 import plotly.express as px
@@ -14,13 +15,16 @@ import util_plotly
 import dash_daq as daq
 from copy import copy
 from ast import literal_eval
+import serial # for sending to the Arduino
+from PIL import ImageColor # For converting from hex to RGB
 
+ser = serial.Serial("/dev/ttyUSB1")
 app = Dash(__name__)
 
 #%% LOAD DATAFRAME
 
 # Create the dataframe, that will be used for informing led behavior
-led_strip_size = 10 # size of the 
+led_strip_size = 46 # size of the 
 df = pd.DataFrame()
 
 df["led_frequency"] = np.random.randint(1,10,size = led_strip_size).tolist()
@@ -36,11 +40,27 @@ colors_list = [
 
 df["color"] = np.random.choice(colors_list,led_strip_size)
 
+def send_to_uc(df_orig:pd.DataFrame):
+    # print(df_orig)
+    df = df_orig.copy(deep=True) # make a copy of the df
+    # df = df.sort_index(ascending=False) # Inverse the order, so that the order of lights would be correct
+    list_to_send = df.rgb.to_list()
+    
+    # remove following [ ] ( ) ' " "
+    string_to_send = str(list_to_send).replace("'","").replace("(","").replace(")","").replace("[","").replace("]","").replace(" ","")
+    # print(string_to_send)
+    # print(ser.is_open)
+    ser.write("{}\n".format(string_to_send).encode())
+
+def hex_to_rgb(hex_str:str):
+    return str(ImageColor.getcolor(hex_str,"RGB"))
+
 def update_dataframe(df):
 
     # column with copy of the frequncy values as strings, to make them discrete
     df["led_index_str"] = df.index
     df["led_index_str"] = df["led_index_str"].apply(lambda x:str(x)) 
+    df["rgb"] = df["color"].apply(hex_to_rgb)
     # Create a dsicrete color map
     list_of_values = df.color.to_list()
     color_map = {str(item):(list_of_values[item]) for item in range(len(list_of_values))}
@@ -147,20 +167,15 @@ def update_color(selected_leds,color_value,adjustment_selection,frequency_value)
     if adjustment_selection == "Adjust Frequency":
         df.loc[select_leds_list,'led_frequency'] = frequency_value
     
+    # Send the data to dataframe
 
-    # print(df)
     fig = update_dataframe(df)
     fig.update_layout(transition_duration=500)
+    send_to_uc(df)
 
     return fig
 
 
 
 if __name__ == '__main__':
-    
-    # app.run_server(
-    #     debug=False,
-    #     host= '0.0.0.0')
-
-
     app.run_server(debug=True,port=8000, host='0.0.0.0')
